@@ -241,9 +241,9 @@ def main():
     if not reader.start(args.rtsp):
         return
 
-    mav = open_mavlink(args.device, args.baudrate, args.sysid)
-    if not mav:
-        return
+    # mav = open_mavlink(args.device, args.baudrate, args.sysid)
+    # if not mav:
+    #     return
 
     logger.info("Starting detection loop")
     while True:
@@ -256,10 +256,10 @@ def main():
         height, width = frame.shape[:2]
         vfov = calculate_vertical_fov(args.hfov, width, height)
         det = detect_april_tag(frame, target_id=args.tag_id)
-        if det:
-            send_landing_target(mav, det['tag_id'], det['center_x'],
-                               det['center_y'], det['width'], det['height'],
-                               width, height, args.hfov, vfov)
+        # if det:
+        #     send_landing_target(mav, det['tag_id'], det['center_x'],
+        #                        det['center_y'], det['width'], det['height'],
+        #                        width, height, args.hfov, vfov)
         time.sleep(0.01)
 
 if __name__ == '__main__':
