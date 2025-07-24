@@ -1,0 +1,11 @@
+camera_matrix:
+  focal_length_pixels: 72.78
+  principal_point_x: 1282.52
+  principal_point_y: 758.71
+
+distortion_coeffs:
+  k1: -0.0002
+  k2: 0
+  k3: 0
+  p1: 0
+  p2: 0
