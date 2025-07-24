@@ -83,10 +83,11 @@ class RTSPStreamReader:
             "rtspsrc location=rtsp://192.168.144.108:554/stream=0 latency=100 ! "
             "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"
         )
+        self.cap = cv2.VideoCapture(0)
         #self.cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
-        self.cap = cv2.VideoCapture(url, cv2.CAP_FFMPEG,
-                                    [cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 5000,
-                                     cv2.CAP_PROP_READ_TIMEOUT_MSEC, 5000])
+        # self.cap = cv2.VideoCapture(url, cv2.CAP_FFMPEG,
+        #                             [cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 5000,
+        #                              cv2.CAP_PROP_READ_TIMEOUT_MSEC, 5000])
         if not self.cap.isOpened():
             logger.error("Could not open stream %s", url)
             return False
