@@ -79,10 +79,16 @@ class RTSPStreamReader:
     def __init__(self):
         self.cap = None
     def start(self, url):
+        # gst_pipeline = (
+        #     "rtspsrc location=rtsp://192.168.144.108:554/stream=0 latency=100 ! "
+        #     "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"
+        # )
         gst_pipeline = (
-            "rtspsrc location=rtsp://192.168.144.108:554/stream=0 latency=100 ! "
-            "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"
+            "rtspsrc location=rtsp://192.168.144.108:554/stream=0 latency=100 drop-on-latency=true ! "
+            "rtph264depay ! queue leaky=downstream max-size-buffers=1 ! h264parse ! nvv4l2decoder ! "
+            "nvvidconv ! videoconvert ! appsink max-buffers=1 drop=true sync=false"
         )
+        # self.cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
         self.cap = cv2.VideoCapture(0)
         #self.cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
         # self.cap = cv2.VideoCapture(url, cv2.CAP_FFMPEG,
